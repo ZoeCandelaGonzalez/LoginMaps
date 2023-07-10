@@ -20,6 +20,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _apellidoTextController = TextEditingController();
   final TextEditingController _fechaTextController = TextEditingController();
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
