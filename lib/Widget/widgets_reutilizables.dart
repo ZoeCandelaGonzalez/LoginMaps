@@ -54,7 +54,8 @@ TextField registro({
   );
 }
 
-Container boton (BuildContext context, String title, Function onTap) {
+Container boton 
+(BuildContext context, String title, Function onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 50,

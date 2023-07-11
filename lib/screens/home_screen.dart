@@ -1,14 +1,55 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../database/user.dart';
+import '../models/user.dart' as modelo; 
 
-class HomeScreen extends StatelessWidget {
+
+
+
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final dao = UserDao(); 
+   List <modelo.User> users = [];
+
+  @override
+  void initState()  {   
+    super.initState();   
+    cargarRegistros();
+  }
+
+  cargarRegistros() async{
+    users = await dao.getAll();
+    log(users.length.toString());
+    setState(() {
+      
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      floatingActionButton: FloatingActionButton(onPressed: ()=> _scaffoldKey.currentState?.openDrawer(),),
+      drawer: Drawer(
+        child: Container(
+          height: 150,
+          color: Colors.red,
+          child: Text('Soy un drawer'),
+        ),
+      ),
 
       body: Stack(
         children: [
@@ -19,7 +60,9 @@ class HomeScreen extends StatelessWidget {
               
           BotonesContacto(),
           _Instagram(),
-            UltimosAccesos(),
+            UltimosAccesos(
+              usuarios: users,
+            ),
             ]
           ),
         ),
@@ -39,16 +82,34 @@ class HomeScreen extends StatelessWidget {
 
 class UltimosAccesos extends StatelessWidget {
   const UltimosAccesos({
-    super.key,
+    super.key, required this.usuarios,
   });
+
+  final List<modelo.User> usuarios;
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder
-    (
-      color: Colors.red,
-    );
-    
+    return Container(
+      height: 200,
+      width: double.infinity,
+      child: ListView(
+        children: [
+          ...usuarios.map((e) => Text(e.name))
+        ],
+      ),
+       decoration:  BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+       gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 97, 26, 168),
+              Color(0xff906EF5),
+              Color(0xff6989F5),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+    ) );
+   
   }
 }
 

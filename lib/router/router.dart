@@ -20,7 +20,7 @@ routes: [
 
   GoRoute(
   path: '/singup', 
-  builder: (context, state) => const SignUpScreen() ),
+  builder: (context, state) =>  SignUpScreen() ),
 
    GoRoute(
   path: '/home', 
