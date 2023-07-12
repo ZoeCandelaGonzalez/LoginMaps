@@ -224,7 +224,7 @@ class BotonesContacto extends StatelessWidget {
             ), 
             Icon(Icons.map_outlined, color: Colors.white.withOpacity(0.5),), 
             const SizedBox(width: 20), 
-            Expanded(child: Text('Nuestas Sucursales', style: TextStyle(color: Colors.white.withOpacity(0.5)),
+            Expanded(child: Text('Nuestras Sucursales', style: TextStyle(color: Colors.white.withOpacity(0.5)),
             )), 
             Icon(Icons.arrow_forward_ios_rounded, color: Colors.white.withOpacity(0.5),),
             const SizedBox(width: 40)
