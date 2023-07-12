@@ -16,9 +16,6 @@ class UserDao {
 
   }
 
-  // Future<bool> deleteOne(User user) async {
-  //   return isar!.writeTxn(() => isar!.users.delete(user.id));
-  // }
 
   Future<int> upsert(User user) async {
     return isar!.writeTxn(() => isar!.users.put(user));

@@ -15,13 +15,13 @@ class MapaScreen extends StatefulWidget {
  
 class _MapaScreenState extends State<MapaScreen> {
 
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
  final CameraPosition _sucursales = const CameraPosition(
       target: LatLng(-27.394840, -55.962392),
     zoom: 14.4746,
   );
    
-   List<Marker> _marker = [];
+   final List<Marker> _marker = [];
   final List<Marker> _list = const [
 
     Marker(
@@ -60,39 +60,37 @@ class _MapaScreenState extends State<MapaScreen> {
         
         appBar: AppBar(
         
-          backgroundColor: Color(0xff906EF5),
+          backgroundColor: const Color(0xff906EF5),
           title: Text('Nuestras sucursales', style: TextStyle(fontSize: 30, color: Colors.white.withOpacity(0.7), fontWeight: FontWeight.bold),), 
           leading: Icon( Icons.arrow_back_ios_new_outlined , color: Colors.white.withOpacity(0.5),),
         ),
-        body: Container(
-          child: SafeArea(
-           child: GoogleMap(
-          initialCameraPosition: _sucursales,
-           
-            markers: Set<Marker>.of(_marker),
-            mapType: MapType.hybrid,
-            myLocationEnabled: true,
-            zoomControlsEnabled: true,
+        body: SafeArea(
+         child: GoogleMap(
+        initialCameraPosition: _sucursales,
+         
+          markers: Set<Marker>.of(_marker),
+          mapType: MapType.hybrid,
+          myLocationEnabled: true,
+          zoomControlsEnabled: true,
        
-            compassEnabled: true,
-           
-              onMapCreated: (GoogleMapController controller){
-                  _controller.complete(controller);
-              },
-            ),
+          compassEnabled: true,
+         
+            onMapCreated: (GoogleMapController controller){
+                _controller.complete(controller);
+            },
           ),
         ),
         
      floatingActionButton: Align(
       alignment: Alignment.bottomLeft,
       child: Padding(
-      padding: EdgeInsets.only(left: 20), 
+      padding: const EdgeInsets.only(left: 20), 
       child: FloatingActionButton(
         onPressed: () async {
           GoogleMapController controller = await _controller.future;
           controller.animateCamera(
             CameraUpdate.newCameraPosition(
-              CameraPosition(
+              const CameraPosition(
                 target: LatLng(-27.394840, -55.962392),
                 zoom: 14,
               ),
@@ -100,7 +98,7 @@ class _MapaScreenState extends State<MapaScreen> {
           );
           setState(() {});
         },
-        child: Icon(Icons.home),
+        child: const Icon(Icons.home),
       ),
       ),
     ),

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -167,8 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                      apellido: _apellidoTextController.text,
                      fechaNacimiento: _fechaTextController.text,
                      email: _emailTextController.text,);
-                      dao.upsert(user);//.then((_) => _nombreTextController.clear());
-
+                      dao.upsert(user);
 
                     FirebaseAuth.instance
                         .createUserWithEmailAndPassword(
@@ -189,66 +188,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:loginmapa/models/user.dart';
-
-// class Registro extends StatefulWidget {
-//   const Registro({super.key});
-
-//   @override
-//   State<Registro> createState() => _RegistroState();
-// }
-
-
-
-// class _RegistroState extends State<Registro> {
-//   final dao = User();
-
-// final controller = TextEditingController(); 
-
-// @override
-//   void dispose() {
-//     controller.dispose();
-//     super.dispose();
-//   }
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Registro'),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Column( 
-//           children: [
-//             Row(
-//               children: [
-//                 Expanded(child: 
-//                 TextField( controller: controller, 
-//                 decoration: InputDecoration(hintText: 'Nombre'),
-//                  ) ),
-//                    ElevatedButton(onPressed: (){}, child: const Text('crear usuario'))
-//               ],
-//             ),
-//            ListView.builder(
-//             shrinkWrap: true,
-//             primary: false,
-//             itemCount: 5,
-//             itemBuilder: (ctx,index)
-//             {
-//               ListTile(
-//                 leading: Text('$index'), 
-//                 title: Text('User'),
-//                 trailing: IconButton(onPressed: (){}, icon: Icon(Icons.add)));
-//             })
-//           ],
-//       ),
-//       )
-//     );
-//   }
-// }

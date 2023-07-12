@@ -1,15 +1,10 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../database/user.dart';
 import '../models/user.dart' as modelo; 
-
-
-
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final dao = UserDao(); 
    List <modelo.User> users = [];
 
@@ -41,25 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      floatingActionButton: FloatingActionButton(onPressed: ()=> _scaffoldKey.currentState?.openDrawer(),),
-      drawer: Drawer(
-        child: Container(
-          height: 150,
-          color: Colors.red,
-          child: Text('Soy un drawer'),
-        ),
-      ),
-
+     
       body: Stack(
         children: [
         Container(
-          margin: EdgeInsets.only(top: 200),
+          margin: const EdgeInsets.only(top: 200),
           child: ListView(
             children: [ 
               
-          BotonesContacto(),
-          _Instagram(),
+          const BotonesContacto(),
+     
             UltimosAccesos(
               usuarios: users,
             ),
@@ -68,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         
         
-        Header(
+        const Header(
         
         ),
        
@@ -79,40 +64,79 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
 class UltimosAccesos extends StatelessWidget {
   const UltimosAccesos({
-    super.key, required this.usuarios,
-  });
+    Key? key,
+    required this.usuarios,
+  }) : super(key: key);
 
   final List<modelo.User> usuarios;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 400,
       width: double.infinity,
-      child: ListView(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        gradient: const LinearGradient(
+          colors: [
+            Color.fromARGB(255, 97, 26, 168),
+            Color(0xff906EF5),
+            Color(0xff6989F5),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ...usuarios.map((e) => Text(e.name))
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Text(
+              'Últimos Accesos',
+              style: TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              children: usuarios.map((e) {
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${e.name} ${e.apellido}',
+                                style: TextStyle(fontSize: 24, color: Colors.white.withOpacity(0.5)),
+                              ),
+                             
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Icon(Icons.supervised_user_circle, color: Colors.white.withOpacity(0.2))
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
         ],
       ),
-       decoration:  BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-       gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 97, 26, 168),
-              Color(0xff906EF5),
-              Color(0xff6989F5),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-    ) );
-   
+    );
   }
 }
-
 
 
 class Header extends StatelessWidget {
@@ -123,7 +147,7 @@ class Header extends StatelessWidget {
     return Stack(
       
       children: [
-        _HeaderBackground(),
+        const _HeaderBackground(),
 
         Positioned(
           top: -45,
@@ -134,14 +158,14 @@ class Header extends StatelessWidget {
 
             Column(
               children: [
-                SizedBox(
+                const SizedBox(
                  height: 50,
                  width: double.infinity,
                 ),
                 Text('Bienvenido', style: TextStyle(fontSize: 40, color: Colors.white.withOpacity(0.7), fontWeight: FontWeight.bold),), 
-                SizedBox( height: 20,), 
+                const SizedBox( height: 20,), 
                 Text('Contáctanos ', style: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.7), fontWeight: FontWeight.bold),), 
-                SizedBox( height: 20,), 
+                const SizedBox( height: 20,), 
 
               ],
 
@@ -153,16 +177,14 @@ class Header extends StatelessWidget {
 }
 
 class _HeaderBackground extends StatelessWidget {
-  const _HeaderBackground({
-    super.key,
-  });
+  const _HeaderBackground();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 200,
-      decoration:  BoxDecoration(
+      decoration:  const BoxDecoration(
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)), 
        gradient: LinearGradient(
             colors: [
@@ -192,20 +214,20 @@ class BotonesContacto extends StatelessWidget {
       child: Stack
       (children: [
     
-        _BotonMapa(), 
+        const _BotonMapa(), 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 140,
               width: 40,
             ), 
             Icon(Icons.map_outlined, color: Colors.white.withOpacity(0.5),), 
-            SizedBox(width: 20), 
+            const SizedBox(width: 20), 
             Expanded(child: Text('Nuestas Sucursales', style: TextStyle(color: Colors.white.withOpacity(0.5)),
             )), 
             Icon(Icons.arrow_forward_ios_rounded, color: Colors.white.withOpacity(0.5),),
-            SizedBox(width: 40)
+            const SizedBox(width: 40)
           ],
          ), 
     
@@ -217,68 +239,20 @@ class BotonesContacto extends StatelessWidget {
   }
 }
 
-class _Instagram extends StatelessWidget {
-  const _Instagram({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack
-    (children: [
 
-      _RedesSociales(), 
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 140,
-            width: 40,
-          ), 
-          Icon(Icons.email, color: Colors.white.withOpacity(0.5),), 
-          SizedBox(width: 20), 
-          Expanded(child: Text('Redes Sociales', style: TextStyle(color: Colors.white.withOpacity(0.5)),
-          )), 
-          Icon(Icons.arrow_forward_ios_rounded, color: Colors.white.withOpacity(0.5),),
-          SizedBox(width: 40)
-        ],
-       ), 
+class _BotonMapa extends StatelessWidget {
+  const _BotonMapa();
 
-    ] 
-    
-    );
-    
-  }
-}
-
-class _RedesSociales extends StatelessWidget {
-  const _RedesSociales({
-    super.key,
-  });
-
- 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15),
-        child: Stack( 
-          children: [
-            Positioned(
-              right:- 20,
-              top:-20,
-              child: Icon(Icons.email_rounded, size:  150, color: Colors.white.withOpacity(0.2))
-            ), 
-             ],
-        ),
-      ), 
-     
       width: double.infinity, 
       height: 100,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15), 
-        gradient:  LinearGradient(
+        gradient:  const LinearGradient(
             colors: [
               Color.fromARGB(255, 97, 26, 168),
               Color(0xff906EF5),
@@ -287,20 +261,7 @@ class _RedesSociales extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
-      )
-    );
-  }
-}
-
-
-class _BotonMapa extends StatelessWidget {
-  const _BotonMapa({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: Stack( 
@@ -312,22 +273,6 @@ class _BotonMapa extends StatelessWidget {
             ), 
              ],
         ),
-      ), 
-     
-      width: double.infinity, 
-      height: 100,
-      margin: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15), 
-        gradient:  LinearGradient(
-            colors: [
-              Color.fromARGB(255, 97, 26, 168),
-              Color(0xff906EF5),
-              Color(0xff6989F5),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
       )
     );
   }
